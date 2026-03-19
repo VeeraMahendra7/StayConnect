@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const initData = require('./data.js')
+const Listing = require('../models/listingModel.js')
 
 const connectToDB = async () => {
     try {
@@ -8,5 +10,13 @@ const connectToDB = async () => {
         console.log("DB Error: ", error.message)
     }  
 }
+
+const initDB = async () => {
+    await Listing.deleteMany({});
+    await Listing.insertMany(initData.data)
+    console.log("data was initialized");
+}
+
+// initDB();
 
 module.exports = connectToDB;
